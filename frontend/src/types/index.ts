@@ -104,6 +104,27 @@ export interface AgenteDisponible {
   email: string
 }
 
+export interface EmpleadoListadoItem {
+  id: string
+  nombre: string
+  email: string
+  rol: Rol
+  activo: boolean
+}
+
+export interface CrearEmpleadoRequest {
+  nombre: string
+  email: string
+  rol: Rol
+  passwordTemporal: string
+}
+
+export interface EditarEmpleadoRequest {
+  nombre: string
+  email: string
+  rol?: Rol
+}
+
 export interface ProblemaApi {
   type: string
   title: string

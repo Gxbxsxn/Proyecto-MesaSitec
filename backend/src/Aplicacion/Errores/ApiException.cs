@@ -43,4 +43,13 @@ public class ApiException : Exception
 
     public static ApiException Validacion(IDictionary<string, string[]> errores, string detail = "Uno o más campos no son válidos.")
         => new(422, "VALIDACION", "Error de validación", detail, errores);
+
+    public static ApiException EmailDuplicado(string detail = "Ya existe un usuario con ese email en tu organización.")
+        => new(409, "EMAIL_DUPLICADO", "Email duplicado", detail);
+
+    public static ApiException AutoBloqueoNoPermitido(string detail = "No puedes bloquear tu propio usuario.")
+        => new(409, "AUTO_BLOQUEO_NO_PERMITIDO", "Operación no permitida", detail);
+
+    public static ApiException UltimoAdminActivo(string detail = "No puedes bloquear al último administrador activo de tu organización.")
+        => new(409, "ULTIMO_ADMIN_ACTIVO", "Operación no permitida", detail);
 }

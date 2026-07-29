@@ -53,13 +53,31 @@ Para reproducir la prueba de aislamiento (RN-01): inicia sesión con `user1@sur.
 cd backend && dotnet test
 ```
 
-13 pruebas xUnit (mínimo pedido: 8), cubriendo la máquina de estados (RN-02), el cálculo del SLA (RN-04) y las reglas de permisos por rol (RN-03).
+19 pruebas xUnit (mínimo pedido: 8), cubriendo la máquina de estados (RN-02), el cálculo del SLA (RN-04), las reglas de permisos por rol (RN-03) y las reglas del módulo de empleados (RN-08).
 
 ## Verificar el tipado estricto del frontend
 
 ```bash
 cd frontend && npm run type-check
 ```
+
+## Módulo de empleados (nuevo, RN-08)
+
+Además del contrato original, se agregó un módulo completo para administrar el personal de cada organización:
+
+| Método | Ruta | Quién puede |
+|---|---|---|
+| GET | `/api/v1/empleados` | Admin, Agente |
+| POST | `/api/v1/empleados` | Admin, Agente (un Agente solo puede crear con rol `Solicitante`) |
+| PUT | `/api/v1/empleados/{id}` | Admin, Agente (un Agente puede editar nombre/email, pero no el rol) |
+| POST | `/api/v1/empleados/{id}/bloquear` | Solo Admin |
+| POST | `/api/v1/empleados/{id}/desbloquear` | Solo Admin |
+
+Reglas clave:
+- Un **Solicitante** no tiene acceso a este módulo en absoluto (ni backend ni frontend).
+- Un **Agente** puede ver, crear y editar empleados, pero **no puede bloquear/desbloquear ni cambiar roles** — esos botones directamente no aparecen en su interfaz, y el backend los rechaza igual aunque se llame al endpoint a mano.
+- No existe un DELETE real: un usuario puede estar referenciado por solicitudes (como solicitante o agente), así que borrarlo de la base de datos rompería la integridad referencial. La acción destructiva equivalente es **bloquear** (`Activo = false`), que impide iniciar sesión sin perder el historial de solicitudes asociado. Ver el razonamiento completo en `DECISIONES.md`.
+- Nadie puede bloquearse a sí mismo, y no se puede bloquear al último Admin activo de una organización (para no dejarla sin nadie que administre).
 
 ## Qué está implementado
 

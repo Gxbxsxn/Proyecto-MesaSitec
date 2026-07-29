@@ -36,7 +36,7 @@ builder.Services.AddScoped<IJwtEmisor, JwtEmisor>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<CategoriaService>();
 builder.Services.AddScoped<SolicitudService>();
-builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<EmpleadoService>();
 
 builder.Services.AddCors(options =>
 {

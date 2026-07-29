@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()
 const router = useRouter()
+
+const puedeVerEmpleados = computed(() => auth.rol === 'Admin' || auth.rol === 'Agente')
 
 function salir() {
   auth.cerrarSesion()
@@ -14,9 +17,22 @@ function salir() {
 <template>
   <nav data-testid="app-nav" style="background: white; border-bottom: 1px solid var(--color-borde);">
     <div class="contenedor" style="display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1.5rem;">
-      <router-link :to="{ name: 'solicitudes-listado' }" style="font-weight: 700; color: var(--color-primario); text-decoration: none;">
-        MesaSitec
-      </router-link>
+      <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <router-link :to="{ name: 'solicitudes-listado' }" style="font-weight: 700; color: var(--color-primario); text-decoration: none;">
+          MesaSitec
+        </router-link>
+        <router-link :to="{ name: 'solicitudes-listado' }" style="color: var(--tinta); text-decoration: none; font-size: 0.9rem;">
+          Solicitudes
+        </router-link>
+        <router-link
+          v-if="puedeVerEmpleados"
+          data-testid="nav-link-empleados"
+          :to="{ name: 'empleados-listado' }"
+          style="color: var(--tinta); text-decoration: none; font-size: 0.9rem;"
+        >
+          Empleados
+        </router-link>
+      </div>
       <div style="display: flex; align-items: center; gap: 1rem;">
         <span data-testid="nav-usuario-nombre">{{ auth.usuario?.nombre }}</span>
         <span data-testid="nav-usuario-rol" class="badge" style="background: var(--primario-suave); color: var(--primario);">

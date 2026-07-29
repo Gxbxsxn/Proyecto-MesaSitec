@@ -33,6 +33,25 @@ const router = createRouter({
       component: () => import('@/views/SolicitudFormView.vue'),
       props: true,
     },
+    {
+      path: '/empleados',
+      name: 'empleados-listado',
+      component: () => import('@/views/EmpleadosListView.vue'),
+      meta: { roles: ['Admin', 'Agente'] },
+    },
+    {
+      path: '/empleados/nuevo',
+      name: 'empleados-nuevo',
+      component: () => import('@/views/EmpleadoFormView.vue'),
+      meta: { roles: ['Admin', 'Agente'] },
+    },
+    {
+      path: '/empleados/:id/editar',
+      name: 'empleados-editar',
+      component: () => import('@/views/EmpleadoFormView.vue'),
+      props: true,
+      meta: { roles: ['Admin', 'Agente'] },
+    },
   ],
 })
 
@@ -44,6 +63,11 @@ router.beforeEach((to) => {
   }
 
   if (to.name === 'login' && auth.estaAutenticado) {
+    return { name: 'solicitudes-listado' }
+  }
+
+  const rolesPermitidos = to.meta.roles as string[] | undefined
+  if (rolesPermitidos && auth.rol && !rolesPermitidos.includes(auth.rol)) {
     return { name: 'solicitudes-listado' }
   }
 
