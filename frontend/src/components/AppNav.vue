@@ -19,7 +19,7 @@ function salir() {
       </router-link>
       <div style="display: flex; align-items: center; gap: 1rem;">
         <span data-testid="nav-usuario-nombre">{{ auth.usuario?.nombre }}</span>
-        <span data-testid="nav-usuario-rol" class="badge" style="background: #e0e7ff; color: var(--color-primario);">
+        <span data-testid="nav-usuario-rol" class="badge" style="background: var(--primario-suave); color: var(--primario);">
           {{ auth.usuario?.rol }}
         </span>
         <button data-testid="btn-logout" class="btn" @click="salir">Salir</button>

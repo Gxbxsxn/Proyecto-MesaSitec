@@ -135,12 +135,12 @@ async function confirmarAccion(payload: { agenteId?: string; motivo?: string }) 
       <p data-testid="detalle-descripcion" style="white-space: pre-wrap;">{{ solicitud.descripcion }}</p>
 
       <dl style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.8rem; margin: 1.2rem 0;">
-        <div><dt style="color: #6b7280; font-size: 0.8rem;">Estado</dt><dd data-testid="detalle-estado" style="margin: 0;">{{ solicitud.estado }}</dd></div>
-        <div><dt style="color: #6b7280; font-size: 0.8rem;">Prioridad</dt><dd data-testid="detalle-prioridad" style="margin: 0;">{{ solicitud.prioridad }}</dd></div>
-        <div><dt style="color: #6b7280; font-size: 0.8rem;">Categoría</dt><dd data-testid="detalle-categoria" style="margin: 0;">{{ solicitud.categoria.nombre }}</dd></div>
-        <div><dt style="color: #6b7280; font-size: 0.8rem;">Agente</dt><dd data-testid="detalle-agente" style="margin: 0;">{{ solicitud.agente?.nombre ?? 'Sin asignar' }}</dd></div>
-        <div><dt style="color: #6b7280; font-size: 0.8rem;">Creada</dt><dd data-testid="detalle-fecha-creacion" style="margin: 0;">{{ new Date(solicitud.fechaCreacion).toLocaleString('es-GT') }}</dd></div>
-        <div><dt style="color: #6b7280; font-size: 0.8rem;">Límite SLA</dt><dd data-testid="detalle-fecha-limite" style="margin: 0;">{{ new Date(solicitud.fechaLimiteSla).toLocaleString('es-GT') }}</dd></div>
+        <div><dt style="color: var(--tinta-suave); font-size: 0.8rem;">Estado</dt><dd data-testid="detalle-estado" style="margin: 0;"><span :class="`pill pill-${solicitud.estado.toLowerCase()}`">{{ solicitud.estado }}</span></dd></div>
+        <div><dt style="color: var(--tinta-suave); font-size: 0.8rem;">Prioridad</dt><dd data-testid="detalle-prioridad" style="margin: 0;"><span :class="`pill pill-${solicitud.prioridad.toLowerCase()}`">{{ solicitud.prioridad }}</span></dd></div>
+        <div><dt style="color: var(--tinta-suave); font-size: 0.8rem;">Categoría</dt><dd data-testid="detalle-categoria" style="margin: 0;">{{ solicitud.categoria.nombre }}</dd></div>
+        <div><dt style="color: var(--tinta-suave); font-size: 0.8rem;">Agente</dt><dd data-testid="detalle-agente" style="margin: 0;">{{ solicitud.agente?.nombre ?? 'Sin asignar' }}</dd></div>
+        <div><dt style="color: var(--tinta-suave); font-size: 0.8rem;">Creada</dt><dd data-testid="detalle-fecha-creacion" style="margin: 0;">{{ new Date(solicitud.fechaCreacion).toLocaleString('es-GT') }}</dd></div>
+        <div><dt style="color: var(--tinta-suave); font-size: 0.8rem;">Límite SLA</dt><dd data-testid="detalle-fecha-limite" style="margin: 0;">{{ new Date(solicitud.fechaLimiteSla).toLocaleString('es-GT') }}</dd></div>
       </dl>
 
       <p v-if="solicitud.motivoResolucion || solicitud.motivoCancelacion" data-testid="detalle-motivo">

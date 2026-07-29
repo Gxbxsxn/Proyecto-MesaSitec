@@ -1,20 +1,42 @@
 :root {
   color-scheme: light;
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  --color-primario: #1d4ed8;
-  --color-borde: #d1d5db;
-  --color-fondo: #f8fafc;
-  --color-texto: #111827;
-  --color-peligro: #b91c1c;
-  --color-exito: #15803d;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  /* --- Paleta --- */
+  --tinta: #16211c;
+  --tinta-suave: #5b6b63;
+  --fondo: #f2f5f2;
+  --superficie: #ffffff;
+  --borde: #dde3de;
+
+  --primario: #0f6e5c;      /* verde-petróleo — "en marcha, bajo control" */
+  --primario-suave: #e2f2ee;
+  --alerta: #c1442f;        /* terracota-rojizo — vencidas / crítico */
+  --alerta-suave: #fbe8e4;
+  --ambar: #b8791a;         /* medio / alta prioridad */
+  --ambar-suave: #f8ecd9;
+  --neutro-suave: #eef1ef;
+
+  --color-primario: var(--primario);
+  --color-borde: var(--borde);
+  --color-fondo: var(--fondo);
+  --color-texto: var(--tinta);
+  --color-peligro: var(--alerta);
+  --color-exito: var(--primario);
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: var(--color-fondo);
-  color: var(--color-texto);
+  background: var(--fondo);
+  color: var(--tinta);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Georgia', 'Iowan Old Style', serif;
+  letter-spacing: -0.01em;
 }
 
 button {
@@ -23,87 +45,141 @@ button {
 }
 
 .btn {
-  border: 1px solid var(--color-borde);
-  background: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  border: 1px solid var(--borde);
+  background: var(--superficie);
+  color: var(--tinta);
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
+
+.btn:hover:not(:disabled) { border-color: var(--primario); }
 
 .btn-primario {
-  background: var(--color-primario);
+  background: var(--primario);
   color: white;
-  border-color: var(--color-primario);
+  border-color: var(--primario);
 }
 
+.btn-primario:hover:not(:disabled) { background: #0b5a4b; }
+
 .btn-peligro {
-  background: var(--color-peligro);
+  background: var(--alerta);
   color: white;
-  border-color: var(--color-peligro);
+  border-color: var(--alerta);
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 input, select, textarea {
-  border: 1px solid var(--color-borde);
-  border-radius: 6px;
-  padding: 0.5rem;
-  font-size: 0.9rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.88rem;
   font-family: inherit;
   width: 100%;
+  background: var(--superficie);
+  color: var(--tinta);
+}
+
+input:focus, select:focus, textarea:focus, button:focus-visible {
+  outline: 2px solid var(--primario);
+  outline-offset: 1px;
 }
 
 .campo {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.3rem;
   margin-bottom: 1rem;
 }
 
+.campo label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
 .error-campo {
-  color: var(--color-peligro);
+  color: var(--alerta);
   font-size: 0.8rem;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
-  background: white;
+  background: var(--superficie);
 }
 
-th, td {
-  border-bottom: 1px solid var(--color-borde);
-  padding: 0.6rem 0.8rem;
+th {
+  border-bottom: 1px solid var(--borde);
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--tinta-suave);
+  background: var(--neutro-suave);
+}
+
+td {
+  border-bottom: 1px solid var(--borde);
+  padding: 0.75rem 0.9rem;
   text-align: left;
   font-size: 0.9rem;
 }
 
+tbody tr { transition: background 0.1s ease; }
+tbody tr:hover { background: var(--primario-suave); }
+
 .badge {
   display: inline-block;
-  padding: 0.15rem 0.5rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .badge-vencida {
-  background: #fee2e2;
-  color: var(--color-peligro);
+  background: var(--alerta-suave);
+  color: var(--alerta);
 }
 
+/* --- Pills de estado y prioridad (para el dashboard) --- */
+.pill { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.22rem 0.65rem; border-radius: 999px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
+.pill::before { content: ''; width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+
+.pill-nueva { background: #e7ecfb; color: #2c4aa8; }
+.pill-asignada { background: #eef1ef; color: var(--tinta-suave); }
+.pill-enproceso { background: var(--ambar-suave); color: var(--ambar); }
+.pill-resuelta { background: var(--primario-suave); color: var(--primario); }
+.pill-cerrada { background: #e7e9e8; color: #4a544d; }
+.pill-cancelada { background: var(--alerta-suave); color: var(--alerta); }
+
+.pill-baja { background: var(--neutro-suave); color: var(--tinta-suave); }
+.pill-media { background: #e7ecfb; color: #2c4aa8; }
+.pill-alta { background: var(--ambar-suave); color: var(--ambar); }
+.pill-critica { background: var(--alerta-suave); color: var(--alerta); }
+
 .contenedor {
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1.75rem 1.5rem 3rem;
 }
 
 .tarjeta {
-  background: white;
-  border: 1px solid var(--color-borde);
-  border-radius: 10px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
   padding: 1.5rem;
 }
 
@@ -116,12 +192,13 @@ th, td {
   color: white;
   font-size: 0.9rem;
   z-index: 50;
+  box-shadow: 0 8px 24px rgba(22, 33, 28, 0.18);
 }
 
 .modal-fondo {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(22, 33, 28, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,8 +207,60 @@ th, td {
 
 .modal-caja {
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 1.5rem;
   width: 100%;
   max-width: 420px;
+  box-shadow: 0 20px 50px rgba(22, 33, 28, 0.25);
 }
+
+/* --- Panel de resumen (anillos tipo "donut") --- */
+.panel-resumen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.tarjeta-anillo {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.tarjeta-anillo__texto { display: flex; flex-direction: column; gap: 0.15rem; }
+
+.tarjeta-anillo__etiqueta {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--tinta-suave);
+}
+
+.tarjeta-anillo__numero {
+  font-family: 'Georgia', 'Iowan Old Style', serif;
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.tarjeta-anillo__detalle {
+  font-size: 0.78rem;
+  color: var(--tinta-suave);
+}
+
+.anillo-track { stroke: var(--neutro-suave); fill: none; }
+
+/* --- Barra de herramientas de filtros --- */
+.barra-filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.9rem;
+  align-items: end;
+}
+
+.barra-busqueda {
+  display: flex;
+  gap: 0.5rem;
+}
+
