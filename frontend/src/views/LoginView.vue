@@ -113,12 +113,6 @@ function mostrarAyudaContrasena() {
           >
             {{ cargando ? 'Ingresando…' : 'Ingresar' }}
           </button>
-
-          <p class="text-center mt-3 mb-0">
-            <button type="button" data-testid="login-forgot" class="btn btn-link btn-sm text-white-50" @click="mostrarAyudaContrasena">
-              ¿Olvidaste tu contraseña?
-            </button>
-          </p>
         </form>
       </div>
 
